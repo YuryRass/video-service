@@ -1,8 +1,13 @@
-from urllib.parse import urljoin
+import urllib.parse
 
-from pydantic import BaseModel, HttpUrl, computed_field, field_validator
-
-from app.settings import get_settings
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    HttpUrl,
+    computed_field,
+    field_validator,
+)
 
 
 class HttpPostVideoSchema(BaseModel):
@@ -24,11 +29,28 @@ class VideoCreateSchema(BaseModel):
 class VideoResponseSchema(BaseModel):
     id: int
     title: str
+    url: HttpUrl | None = Field(None, exclude=True)
 
     @computed_field
     def playlist_url(self) -> str:
-        return urljoin(get_settings().HLS_URL_TEMPLATE, f"{self.id}.m3u8")
+        parsed_url = urllib.parse.urlparse(str(self.url))
 
-    class Config:
-        from_attributes = True
-        extra = "ignore"
+        new_path = f"/hls/{self.id}.m3u8"
+
+        new_url = urllib.parse.urlunparse(
+            (
+                parsed_url.scheme,
+                parsed_url.netloc,
+                new_path,
+                parsed_url.params,
+                parsed_url.query,
+                parsed_url.fragment,
+            )
+        )
+
+        return new_url
+
+    model_config = ConfigDict(
+        from_attributes=True,
+        extra="ignore",
+    )

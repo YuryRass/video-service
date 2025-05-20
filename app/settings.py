@@ -16,7 +16,6 @@ class Settings(BaseSettings):
     JWT_ENCODE_ALGORITHM: str
     JWT_COOKIE_KEY: str
 
-    HLS_URL_TEMPLATE: str
     LOCAL_PATH_TO_HLS: str
 
     @property

@@ -24,7 +24,7 @@ class VideoService:
             **video_data.model_dump(),
         )
         await self.video_cache_repository.set_video_for_user(video)
-        background_tasks.add_task(generate_hls, video.id)
+        background_tasks.add_task(generate_hls, video.url, video.id)
         return VideoResponseSchema.model_validate(video)
 
     async def get_video(
@@ -35,9 +35,12 @@ class VideoService:
             user_id,
         )
         if not video:
-            if video := await self.video_repository.get_video(
+            if finded_video := await self.video_repository.get_video(
                 id=video_id,
                 user_id=user_id,
             ):
-                await self.video_cache_repository.set_video_for_user(video)
+                await self.video_cache_repository.set_video_for_user(
+                    finded_video,
+                )
+                return VideoResponseSchema.model_validate(finded_video)
         return video

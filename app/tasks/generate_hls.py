@@ -1,3 +1,4 @@
+import urllib.parse
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -9,11 +10,24 @@ settings = get_settings()
 
 
 @celery_app.task
-def generate_hls(video_id: int) -> None:
+def generate_hls(url: str, video_id: int) -> None:
     """Генерация HLS-плейлиста."""
     try:
         logger.info("Генерация HLS-плейлиста...")
-        hls_url = f"{settings.HLS_URL_TEMPLATE}{video_id}"
+        parsed_url = urllib.parse.urlparse(url)
+
+        new_path = f"/hls/{video_id}.m3u8"
+
+        hls_url = urllib.parse.urlunparse(
+            (
+                parsed_url.scheme,
+                parsed_url.netloc,
+                new_path,
+                parsed_url.params,
+                parsed_url.query,
+                parsed_url.fragment,
+            )
+        )
 
         segments = [urljoin(hls_url, f"segment{it}.ts") for it in range(1, 6)]
         playlist_content = "#EXTM3U\n" + "\n".join(

@@ -1,13 +1,14 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UserResponseSchema(BaseModel):
     id: int
     email: EmailStr
 
-    class Config:
-        from_attributes = True
-        extra = "ignore"
+    model_config = ConfigDict(
+        from_attributes=True,
+        extra="ignore",
+    )
 
 
 class UserCreateSchema(BaseModel):
