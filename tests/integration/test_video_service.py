@@ -20,6 +20,7 @@ async def test_video_service(
 ):
     await fake_user_repository.create_user()
     created_user = await fake_user_repository.get_user()
+    assert created_user
     mock_background_tasks = MagicMock()
     created_video = await mock_video_service.create_video(
         video_data=VideoCreateSchema(

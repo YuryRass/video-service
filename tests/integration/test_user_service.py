@@ -21,6 +21,7 @@ async def test_user_service(
         )
     )
     user = await fake_user_repository.get_user()
+    assert user
     assert user.email == TEST_EMAIL
     assert user.password == TEST_PASSWORD
 

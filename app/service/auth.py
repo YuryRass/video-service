@@ -22,8 +22,8 @@ from app.settings import Settings
 
 
 class JWTPayload(StrEnum):
-    USER_ID: str = "user_id"
-    EXPIRE: str = "expire"
+    USER_ID = "user_id"
+    EXPIRE = "expire"
 
 
 @dataclass
