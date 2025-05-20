@@ -37,7 +37,6 @@ async def get_current_user(
     request: Request,
     auth_service: AuthService = Depends(get_auth_service),
 ) -> User:
-    """Возвращает пользователя по его JWT токену."""
     return await auth_service.get_user_from_access_token(request)
 
 
