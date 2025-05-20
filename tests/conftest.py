@@ -1,17 +1,7 @@
-import asyncio
-
-import pytest
-
 pytest_plugins = [
     "tests.fixtures.user.user_repository",
-    "tests.fixtures.user.user_model",
     "tests.fixtures.user.user_service",
-    "tests.database",
+    "tests.fixtures.video.video_repository",
+    "tests.fixtures.video.video_cache_repository",
+    "tests.fixtures.video.video_service",
 ]
-
-
-@pytest.fixture(scope="session")
-def event_loop():
-    loop = asyncio.get_event_loop()
-    yield loop
-    loop.close()
