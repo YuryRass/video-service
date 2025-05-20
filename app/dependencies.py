@@ -29,7 +29,7 @@ async def get_auth_service(
 async def get_user_service(
     user_repo: UserRepository = Depends(get_user_repository),
     settings: Settings = Depends(get_settings),
-):
+) -> UserService:
     return UserService(user_repo, settings)
 
 
