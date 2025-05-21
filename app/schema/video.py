@@ -1,7 +1,13 @@
 import urllib.parse
 
-from pydantic import (BaseModel, ConfigDict, Field, HttpUrl, computed_field,
-                      field_validator)
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    HttpUrl,
+    computed_field,
+    field_validator,
+)
 
 
 class HttpPostVideoSchema(BaseModel):

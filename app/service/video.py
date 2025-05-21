@@ -4,8 +4,11 @@ from fastapi import BackgroundTasks
 
 from app.repository.cache_video import VideoCache
 from app.repository.video import VideoRepository
-from app.schema.video import (CacheVideoResponseSchema, VideoCreateSchema,
-                              VideoResponseSchema)
+from app.schema.video import (
+    CacheVideoResponseSchema,
+    VideoCreateSchema,
+    VideoResponseSchema,
+)
 from app.settings import Settings
 from app.tasks.generate_hls import generate_hls
 

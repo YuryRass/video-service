@@ -7,11 +7,13 @@ from typing import Any
 from fastapi import Request, Response
 from jose import JWTError, jwt
 
-from app.exceptions import (IncorrectEmailOrPasswordException,
-                            IncorrectJWTtokenException,
-                            JWTtokenExpiredException,
-                            UserIsNotPresentException,
-                            UserUnauthorizedException)
+from app.exceptions import (
+    IncorrectEmailOrPasswordException,
+    IncorrectJWTtokenException,
+    JWTtokenExpiredException,
+    UserIsNotPresentException,
+    UserUnauthorizedException,
+)
 from app.models.user import User
 from app.repository.user import UserRepository
 from app.schema.auth import UserAuthSchema

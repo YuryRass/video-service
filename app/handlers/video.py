@@ -2,8 +2,12 @@ from fastapi import APIRouter, BackgroundTasks, Depends
 
 from app.dependencies import get_current_user, get_video_service
 from app.models.user import User
-from app.schema.video import (CacheVideoResponseSchema, HttpPostVideoSchema,
-                              VideoCreateSchema, VideoResponseSchema)
+from app.schema.video import (
+    CacheVideoResponseSchema,
+    HttpPostVideoSchema,
+    VideoCreateSchema,
+    VideoResponseSchema,
+)
 from app.service.video import VideoService
 
 router: APIRouter = APIRouter(tags=["Video"])
