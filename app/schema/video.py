@@ -1,13 +1,7 @@
 import urllib.parse
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    HttpUrl,
-    computed_field,
-    field_validator,
-)
+from pydantic import (BaseModel, ConfigDict, Field, HttpUrl, computed_field,
+                      field_validator)
 
 
 class HttpPostVideoSchema(BaseModel):
@@ -54,3 +48,9 @@ class VideoResponseSchema(BaseModel):
         from_attributes=True,
         extra="ignore",
     )
+
+
+class CacheVideoResponseSchema(BaseModel):
+    id: int
+    title: str
+    playlist_url: str

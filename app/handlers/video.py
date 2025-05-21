@@ -2,11 +2,8 @@ from fastapi import APIRouter, BackgroundTasks, Depends
 
 from app.dependencies import get_current_user, get_video_service
 from app.models.user import User
-from app.schema.video import (
-    HttpPostVideoSchema,
-    VideoCreateSchema,
-    VideoResponseSchema,
-)
+from app.schema.video import (CacheVideoResponseSchema, HttpPostVideoSchema,
+                              VideoCreateSchema, VideoResponseSchema)
 from app.service.video import VideoService
 
 router: APIRouter = APIRouter(tags=["Video"])
@@ -39,6 +36,6 @@ async def get_video(
     video_id: int,
     current_user: User = Depends(get_current_user),
     video_service: VideoService = Depends(get_video_service),
-) -> VideoResponseSchema | None:
+) -> VideoResponseSchema | CacheVideoResponseSchema | None:
     """Получение видео."""
     return await video_service.get_video(video_id, current_user.id)

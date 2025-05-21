@@ -16,8 +16,8 @@ class FakeVideoRepository:
     async def get_video(self, **kwargs: Any) -> Any | None:
         return self.video_obj
 
-    async def create_video(self, **user_data: Any) -> VideoFactory:
-        self.video_obj = VideoFactory.create(**user_data)
+    async def create_video(self, **video_data: Any) -> VideoFactory:
+        self.video_obj = VideoFactory.create(**video_data)
         return self.video_obj
 
 

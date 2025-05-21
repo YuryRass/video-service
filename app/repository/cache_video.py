@@ -3,7 +3,7 @@ import json
 from redis.asyncio import Redis
 
 from app.models.video import Video
-from app.schema.video import VideoResponseSchema
+from app.schema.video import CacheVideoResponseSchema, VideoResponseSchema
 
 
 class VideoCache:
@@ -15,14 +15,16 @@ class VideoCache:
         self,
         video_id: int,
         user_id: int,
-    ) -> VideoResponseSchema | None:
+    ) -> CacheVideoResponseSchema | None:
         if video_result := await self.redis.get(
             self._get_key(
                 video_id,
                 user_id,
             )
         ):
-            return VideoResponseSchema.model_validate(json.loads(video_result))
+            return CacheVideoResponseSchema.model_validate(
+                json.loads(video_result),
+            )
 
     async def set_video_for_user(self, video: Video) -> None:
         video_schema = VideoResponseSchema.model_validate(video)

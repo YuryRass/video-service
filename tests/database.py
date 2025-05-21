@@ -1,11 +1,8 @@
 import asyncio
 
 import pytest_asyncio
-from sqlalchemy.ext.asyncio import (
-    async_scoped_session,
-    async_sessionmaker,
-    create_async_engine,
-)
+from sqlalchemy.ext.asyncio import (async_scoped_session, async_sessionmaker,
+                                    create_async_engine)
 
 from app.infrastructure.database.database import Base
 
